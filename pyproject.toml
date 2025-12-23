@@ -1,0 +1,18 @@
+[project]
+name = "komodo-stack-gen"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "click",
+    "jinja2",
+]
+
+[project.scripts]
+ksg = "ksg.main:cli"
+
+[dependency-groups]
+dev = [
+    "black",
+]
