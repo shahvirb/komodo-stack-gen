@@ -1,7 +1,14 @@
 from pathlib import Path
 import click
-from jinja2 import Environment, FileSystemLoader
+from jinja2 import Environment, FileSystemLoader, Template
+import os
 
+
+def get_template(filename: str) -> Template:
+    template_dir = Path(__file__).parent.parent.parent / "templates"
+    env = Environment(loader=FileSystemLoader(template_dir))
+    template = env.get_template(filename)
+    return template
 
 @click.group()
 def cli():
@@ -10,21 +17,41 @@ def cli():
 
 
 @cli.command()
-def stacks():
-    """Render the stacks.toml template"""
-    # Get the templates directory
-    template_dir = Path(__file__).parent.parent.parent / "templates"
+@click.argument('directory', type=click.Path(exists=True, file_okay=False, dir_okay=True, path_type=Path))
+def stacks(directory):
+    """Render the stacks.toml template
     
-    # Set up Jinja environment
-    env = Environment(loader=FileSystemLoader(template_dir))
+    DIRECTORY: Target directory to use in the template (e.g., '.' for current directory)
+    """
+    # Resolve directory to absolute path
+    absolute_dir = directory.resolve()
     
-    # Load and render the template
-    template = env.get_template("stacks.toml")
-    rendered = template.render()
-    
-    # Output to stdout
+    template = get_template("stacks.toml")
+    rendered = template.render(
+        directory=str(directory),
+        absolute_directory=str(absolute_dir),
+        directory_name=absolute_dir.name
+    )
+
     click.echo(rendered)
 
+@cli.command()
+@click.argument('directory', type=click.Path(exists=True, file_okay=False, dir_okay=True))
+def single(directory):
+    """Generate a single stack configuration from a directory."""
+    dir_path = Path(directory).resolve()
+    stack_name = dir_path.name
+    server_name = os.environ.get('HOSTNAME') or os.environ.get('COMPUTERNAME', 'localhost')
+    predeploy = False
+    
+    template = get_template("single.toml")
+    rendered = template.render(
+        stack_name=stack_name,
+        server_name=server_name,
+        predeploy=predeploy
+    )
+    
+    click.echo(rendered)
 
 if __name__ == "__main__":
     cli()

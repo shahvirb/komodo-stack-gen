@@ -1,1 +1,17 @@
-This is a test jinja template which does nothing yet. Thanks.
+# Stack Configuration Template
+# Demonstrating usage of the passed-in directory argument
+
+[metadata]
+# The directory argument as provided (e.g., ".")
+input_directory = "{{ directory }}"
+
+# The absolute path to the directory
+absolute_path = "{{ absolute_directory }}"
+
+# Just the directory name
+directory_name = "{{ directory_name }}"
+
+[stacks]
+# Example: Use the directory in your stack configuration
+# root_dir = "{{ absolute_directory }}"
+# relative_dir = "{{ directory }}"

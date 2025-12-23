@@ -1,0 +1,13 @@
+[[stack]]
+name = "{{ stack_name }}"
+
+[stack.config]
+server = "{{ server_name }}"
+files_on_host = true
+file_paths = [ "docker-compose.yaml" ]
+
+{% if predeploy %}
+[stack.config.pre_deploy]
+path = ""
+command = "/home/shahvirb/gitsource/utils/op-unpack.sh"
+{% endif %}
