@@ -3,9 +3,14 @@ name = "{{ stack_name }}"
 
 [stack.config]
 server = "{{ server_name }}"
-files_on_host = true
 file_paths = [ "docker-compose.yaml" ]
-
+{%- if has_git %}
+run_directory = "{{ stack_name }}"
+git_provider = "github.com"
+repo = "shahvirb/{{ stack_name }}"
+{%- else %}
+files_on_host = true
+{%- endif %}
 {% if op_unpack %}
 [stack.config.pre_deploy]
 path = ""

@@ -56,9 +56,15 @@ def single(directory):
     # If any files with .tpl extension exist, set op_unpack to True
     op_unpack = bool(list(dir_path.rglob("*.tpl")))
 
+    # Check if .git directory exists
+    has_git = bool(list(dir_path.glob(".git")))
+
     template = get_template("single.toml")
     rendered = template.render(
-        stack_name=stack_name, server_name=server_name, op_unpack=op_unpack
+        stack_name=stack_name,
+        server_name=server_name,
+        op_unpack=op_unpack,
+        has_git=has_git,
     )
 
     click.echo(rendered)
