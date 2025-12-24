@@ -42,13 +42,13 @@ def single(directory):
     dir_path = Path(directory).resolve()
     stack_name = dir_path.name
     server_name = os.environ.get('HOSTNAME') or os.environ.get('COMPUTERNAME', 'localhost')
-    predeploy = False
+    op_unpack = False
     
     template = get_template("single.toml")
     rendered = template.render(
         stack_name=stack_name,
         server_name=server_name,
-        predeploy=predeploy
+        op_unpack=op_unpack
     )
     
     click.echo(rendered)
