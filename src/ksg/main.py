@@ -47,7 +47,9 @@ def single(directory):
     server_name = os.environ.get("HOSTNAME") or os.environ.get(
         "COMPUTERNAME", "localhost"
     )
-    op_unpack = False
+
+    # If any files with .tpl extension exist, set op_unpack to True
+    op_unpack = bool(list(dir_path.rglob("*.tpl")))
 
     template = get_template("single.toml")
     rendered = template.render(
