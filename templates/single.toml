@@ -5,7 +5,6 @@ name = "{{ stack_name }}"
 server = "{{ server_name }}"
 file_paths = [ "docker-compose.yaml" ]
 {%- if has_git %}
-run_directory = "{{ stack_name }}"
 git_provider = "github.com"
 repo = "shahvirb/{{ stack_name }}"
 {%- else %}
@@ -16,3 +15,4 @@ files_on_host = true
 path = ""
 command = "/home/shahvirb/gitsource/utils/op-unpack.sh"
 {% endif %}
+
