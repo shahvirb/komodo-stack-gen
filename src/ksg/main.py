@@ -1,6 +1,6 @@
+from jinja2 import Environment, FileSystemLoader, Template
 from pathlib import Path
 import click
-from jinja2 import Environment, FileSystemLoader, Template
 import os
 
 
