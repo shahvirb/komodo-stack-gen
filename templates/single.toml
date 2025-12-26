@@ -7,6 +7,10 @@ file_paths = [ "docker-compose.yaml" ]
 {%- if has_git %}
 git_provider = "github.com"
 repo = "shahvirb/{{ stack_name }}"
+{%- if stack_name == "stack-komodo-stack-gen" %}
+run_directory = "docker"
+auto_pull = false
+{%- endif %}
 {%- else %}
 files_on_host = true
 {%- endif %}
