@@ -1,0 +1,18 @@
+services:
+  komodo-stack-gen:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+    image: komodo-stack-gen:latest
+    container_name: komodo-stack-gen
+    volumes:
+      # Mount source code and templates from the project
+      - ../src:/app/src:ro
+      - ../templates:/app/templates:ro
+      # Mount the stacks root dir
+      - ../:/stacks:ro
+      # Mount output directory
+      - ./output:/output
+    command: ["stacks", "/stacks", "--output", "/output/main.toml"]
+    environment:
+      - HOSTNAME=${HOSTNAME}

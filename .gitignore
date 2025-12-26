@@ -194,3 +194,6 @@ pyrightconfig.json
 
 # End of https://www.toptal.com/developers/gitignore/api/python,visualstudiocode
 .vscode/launch.json
+
+# output generated files from running the docker container
+docker/output/*
