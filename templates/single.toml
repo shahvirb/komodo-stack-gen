@@ -10,7 +10,6 @@ git_provider = "github.com"
 repo = "shahvirb/{{ stack_name }}"
 clone_path = "/home/shahvirb/gitsource/{{ server_name }}/{{ stack_name }}"
 {%- if stack_name == "stack-komodo-stack-gen" %}
-run_directory = "docker"
 auto_pull = false
 {%- endif %}
 {%- else %}
