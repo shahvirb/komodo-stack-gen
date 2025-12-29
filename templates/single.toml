@@ -1,12 +1,14 @@
 [[stack]]
-name = "{{ stack_name }}"
+name = "{{ stack_name }}_{{ server_name }}"
 
 [stack.config]
 server = "{{ server_name }}"
 file_paths = [ "docker-compose.yaml" ]
+run_directory = "/home/shahvirb/gitsource/{{ server_name }}/{{ stack_name }}{% if stack_name == "stack-komodo-stack-gen" %}/docker{% endif %}"
 {%- if has_git %}
 git_provider = "github.com"
 repo = "shahvirb/{{ stack_name }}"
+clone_path = "/home/shahvirb/gitsource/{{ server_name }}/{{ stack_name }}"
 {%- if stack_name == "stack-komodo-stack-gen" %}
 run_directory = "docker"
 auto_pull = false
